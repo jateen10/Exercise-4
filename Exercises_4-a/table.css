@@ -1,0 +1,63 @@
+/*------Table csss----*/
+
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid rgb(218, 198, 198);
+    border-top-style: double black;
+    font-family: Helvetica ;
+    
+}
+.center_table{
+    margin-left: auto;
+    margin-right: auto;
+    border: radius 10px;
+      
+}
+body{
+    background-color:rgb(244, 244, 244);
+}
+h1{
+    font-family: sans-serif;
+    color: purple;
+    text-align: center;
+    margin-top: 3%;
+}
+th{
+    font-weight: bolder;
+    font-size: 18px;
+    text-align: center;
+    padding:10px ;   
+}
+  
+#broder{
+     border: 2px solid rgb(218, 198, 198);
+     border-top-style: double black;;
+     border-top-style: double ;
+     border-bottom-style: double ;
+}
+td{
+    padding: 11px;
+    
+   border-bottom: 1px solid rgb(217, 195, 198);
+}
+tr:nth-child(odd){
+    background-color: rgb(237, 244, 243);
+
+}
+tr:nth-child(even){
+    background-color:white;
+}
+/*------- Up down-----*/
+
+
+   
+    
+
+
+
+
