@@ -1,11 +1,4 @@
 <?php
-function validpw($password){
-  if(strlen($password) >= 8){
-    if(!ctype_upper($password) && !ctype_lower($password) ){
-      return TRUE;
-    }
-  }
-}
 
 
 require 'config.php';
@@ -17,16 +10,18 @@ if(isset($_POST["submit"])){
   $username = $_POST["username"];
   $email = $_POST["email"];
   $password = $_POST["password"];
+  $h_password = password_hash($password,PASSWORD_DEFAULT);
   $confirmpassword = $_POST["confirmpassword"];
-  $duplicate = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' OR email = '$email'");
+  $duplicate = mysqli_query($conn, "SELECT * FROM tb_user WHERE   email = '$email'");
   if(mysqli_num_rows($duplicate) > 0){
     echo
     "<script> alert(' Email Has Already exist'); </script>";
   }
+  
   else{
     if($password == $confirmpassword){
-     // $hash = password_hash($password, PASSWORD_DEFAULT);
-      $query = "INSERT INTO tb_user VALUES('','$name','$username','$email','$password')";
+     $hash = password_hash($password, PASSWORD_DEFAULT);
+      $query = "INSERT INTO tb_user VALUES('','$name','$username','$email','$h_password')";
       mysqli_query($conn, $query);
    
       echo "Registration Successful  !!";
@@ -37,6 +32,7 @@ if(isset($_POST["submit"])){
       "<script> alert('Password Does Not Match'); </script>";
     }
   }
+  
 }
 ?>
 <!DOCTYPE html>
@@ -71,7 +67,8 @@ if(isset($_POST["submit"])){
     </div>
     <div class="form_group" >
       <label for="password"><b> Password </b> </label>
-      <input type="password" name="password" placeholder="Password" class="form-control"  id = "password" required value=""> 
+      <input type="password" name="password" placeholder="Password" minlength="6"
+       class="form-control"  id = "password" required value=""> 
     </div>
 
       <div class="form_group" >

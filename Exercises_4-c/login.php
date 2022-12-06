@@ -1,38 +1,28 @@
 <?php
 require 'config.php';
 if(!empty($_SESSION["id"])){
-  header("Location: index.php");
+    header("Location: index.php");
 }
-if(isset($_POST["submit"])){
-  $usernameemail = $_POST["usernameemail"];
-  $password = $_POST["password"];
-  $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$usernameemail' OR email = '$usernameemail'");
-  $row = mysqli_fetch_assoc($result);
-/* if ($row ==1){
-  while($row= mysqli_fetch_assoc($result)){
-    if (password_verify($password,$row['password'])){
-      $login = true;
-    }
-  }
-}
+if (isset($_POST["submit"])) {
+    $usernameemail = $_POST["usernameemail"];
+    $password = $_POST["password"];
+    $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE  email = '$usernameemail'");
 
-
-*/
-  if(mysqli_num_rows($result) > 0){
-    if($password == $row['password']){
-      $_SESSION["login"] = true;
-      $_SESSION["id"] = $row["id"];
-      header("Location: index.php");
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $verify = password_verify($password, $row['password']);
+        if ($verify == 1) {
+            $_SESSION["login"] = true;
+            $_SESSION["id"] = $row["id"];
+            header("location: index.php");
+        } else {
+            header("location: error.php");
+            
+        }
+    } else {
+        header("location: error1.php");
+        
     }
-    else{
-      header("Location: error1.php");
-     
-    }
-  }
-  else{
-    header("Location: error.php");
-
-  }
 }
 ?>
 <!DOCTYPE html>
